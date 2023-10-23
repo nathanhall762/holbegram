@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "320754915857",
+    "project_id": "holbegram-6761e",
+    "storage_bucket": "holbegram-6761e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320754915857:android:b4eb53eae6f3158349afb0",
+        "android_client_info": {
+          "package_name": "com.example.holbegram"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyoLtQDilsj6AbMVHU6msjkNXE5DYcfHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:320754915857:android:dcc1f5d30e7a6e9149afb0",
+        "android_client_info": {
+          "package_name": "com.example.holbegram762"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyoLtQDilsj6AbMVHU6msjkNXE5DYcfHM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
