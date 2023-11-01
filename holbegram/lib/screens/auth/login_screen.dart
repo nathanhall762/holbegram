@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class LoginScreen extends StatefulWidget {
   final TextEditingController emailController;
   final TextEditingController passwordController;
-  final bool passwordVisible;
+  bool _passwordVisible;
 
   LoginScreen({
     required this.emailController,
     required this.passwordController,
-    this.passwordVisible = true,
+    this._passwordVisible = true,
   });
 
   @override
@@ -19,9 +19,15 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize _passwordVisible
+    widget._passwordVisible = true;
   }
 
+  @override
+  void dispose() {
+    widget.emailController.dispose();
+    widget.passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,21 +35,21 @@ class _LoginScreenState extends State<LoginScreen> {
       body: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
             SizedBox(height: 28),
             Text(
               'Holbegram',
               style: TextStyle(
-                fontSize: 50,
                 fontFamily: 'Billabong',
+                fontSize: 50,
               ),
             ),
-            SizedBox(height: 28),
+            SizedBox(height: 24),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-                children: [
+                children: <Widget>[
                   SizedBox(height: 28),
                   SizedBox(
                     height: 28,
@@ -57,10 +63,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 24),
                   TextFieldInput(
                     controller: widget.passwordController,
+                    isPassword: !widget._passwordVisible,
                     hintText: 'Password',
                     keyboardType: TextInputType.visiblePassword,
                     suffixIcon: IconButton(
                       alignment: Alignment.bottomLeft,
+                      icon: Icon(
+                        widget._passwordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          widget._passwordVisible = !widget._passwordVisible;
+                        });
                       },
                     ),
                   ),
@@ -73,9 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         backgroundColor:
                             MaterialStateProperty.all(Color.fromARGB(218, 226, 37, 24)),
                       ),
-                      onPressed: () {
-                        // Handle login button press
-                      },
+                      onPressed: () {},
                       child: Text(
                         'Log in',
                         style: TextStyle(color: Colors.white),
@@ -85,10 +99,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 24),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: <Widget>[
                       Text('Forgot your login details?'),
                       Text(
-                        'Get help logging in',
+                        ' Get help logging in',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Flexible(
@@ -98,17 +112,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     ],
                   ),
                   SizedBox(height: 24),
-                  Divider(thickness: 2),
+                  Divider(
+                    thickness: 2,
+                  ),
                   Padding(
                     padding: EdgeInsets.symmetric(vertical: 12),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
+                      children: <Widget>[
                         Text('Don\'t have an account'),
                         TextButton(
-                          onPressed: () {
-                            // Handle sign up button press
-                          },
+                          onPressed: () {},
                           child: Text(
                             'Sign up',
                             style: TextStyle(
@@ -122,19 +136,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   SizedBox(height: 10),
                   Row(
-                    children: [
-                      Flexible(child: Divider(thickness: 2)),
-                      Text('OR'),
-                      Flexible(child: Divider(thickness: 2)),
+                    children: <Widget>[
+                      Flexible(
+                        child: Divider(
+                          thickness: 2,
+                        ),
+                      ),
+                      Text(' OR '),
+                      Flexible(
+                        child: Divider(
+                          thickness: 2,
+                        ),
+                      ),
                     ],
                   ),
                   SizedBox(height: 10),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: <Widget>[
                       Image.network(
-                        'Your Image Link',
+                        'Image Link',
                         width: 40,
                         height: 40,
                       ),
@@ -147,51 +169,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class TextFieldInput extends StatelessWidget {
-  final TextEditingController controller;
-  final bool isPassword;
-  final String hintText;
-  final Widget? suffixIcon;
-  final TextInputType keyboardType;
-
-  TextFieldInput({
-    required this.controller,
-    required this.isPassword,
-    required this.hintText,
-    this.suffixIcon,
-    this.keyboardType = TextInputType.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      keyboardType: keyboardType,
-      controller: controller,
-      cursorColor: Color.fromARGB(218, 226, 37, 24),
-      decoration: InputDecoration(
-        hintText: hintText,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(0.0),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(0.0),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(0.0),
-        ),
-        filled: true,
-        contentPadding: EdgeInsets.all(8),
-        suffixIcon: suffixIcon,
-      ),
-      textInputAction: TextInputAction.next,
-      obscureText: isPassword,
     );
   }
 }
